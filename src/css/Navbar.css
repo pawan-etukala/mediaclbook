@@ -1,0 +1,11 @@
+.container-fluid{
+    background-color:#161515 ;
+    
+}
+.custom-size {
+    width: 80%;
+    height: 80%;
+    object-fit: cover; /* Ensures the content covers the entire area */
+    border-radius: 15px;
+  }
+  
