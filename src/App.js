@@ -13,6 +13,7 @@ import ShoppingPolicy from "./Components/ShoppingPolicy";
 import Afterlogin from "./Components/AfterLogin";
 import Cart from "./Components/cart";
 import Admin from "./Components/admin/Admin";
+import AdminLogin from "./Components/AdminLogin";
 import logo from "./Assets/homeo.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admin/*" element={<Admin />} /> {/* Admin Routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
