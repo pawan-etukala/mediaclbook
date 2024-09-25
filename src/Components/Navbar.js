@@ -53,6 +53,14 @@ const Navbar = () => {
                 Login
               </Link>
             </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link active text-white fw-semibold fs-5"
+                to="/adminlogin"
+              >
+                AdminLogin
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
