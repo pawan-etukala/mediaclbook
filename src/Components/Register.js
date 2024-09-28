@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import '../css/Register.css';
-import Otp from './Otp';
+import "../css/Register.css";
+import Otp from "./Otp";
 export default function Register() {
   const statesAndUTs = [
     "Andhra Pradesh",
@@ -159,7 +159,7 @@ export default function Register() {
                 required
               />
             </div>
-              {/* <Otp/> */}
+            {/* <Otp/> */}
             <div className="col-md-5">
               <label htmlFor="mobile" className="form-label">
                 Mobile Number
@@ -215,8 +215,8 @@ export default function Register() {
                 type="password"
                 className="form-control"
                 id="confirm-password"
-                name="confirm-password"
-                value={formData.password}
+                name="confirmPassword"
+                value={formData.confirmPassword}
                 onChange={handleChange}
                 placeholder="Enter your password"
                 required
