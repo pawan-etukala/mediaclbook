@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const AddSubChapter = () => {
   const [chapterNumber, setChapterNumber] = useState("");
-  const [bookNumber, setBookNumber] = useState("");
   const [subChapterNumber, setSubChapterNumber] = useState("");
+  const [subChapterTitle, setSubChapterTitle] = useState("");
   const [content, setContent] = useState("");
-  const [books, setBooks] = useState(["Book 1", "Book 2", "Book 3"]); // Static book data for selection
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -13,32 +12,29 @@ const AddSubChapter = () => {
 
     const subChapterData = {
       chapterNumber,
-      bookNumber,
       subChapterNumber,
+      subChapterTitle,
       content,
     };
 
     try {
-      // Example of sending subchapter data to an API
-      const response = await fetch("/api/subchapters", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(subChapterData),
-      });
+      // Example of sending subchapter data to an API using axios
+      const response = await axios.post(
+        `http://localhost:8080/admins/subchapter/text?chapterId=${chapterNumber}`,
+        subChapterData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      console.log("Subchapter added successfully:", result);
+      console.log("Subchapter added successfully:", response.data);
 
       // Reset form fields after successful submission
       setChapterNumber("");
-      setBookNumber("");
       setSubChapterNumber("");
+      setSubChapterTitle("");
       setContent("");
     } catch (error) {
       console.error("Error adding subchapter:", error);
@@ -63,25 +59,6 @@ const AddSubChapter = () => {
           />
         </div>
 
-        {/* Book Number (Select Field) */}
-        <div className="form-group mt-3">
-          <label htmlFor="bookNumber">Book Number</label>
-          <select
-            className="form-control"
-            id="bookNumber"
-            value={bookNumber}
-            onChange={(e) => setBookNumber(e.target.value)}
-            required
-          >
-            <option value="">Select a book</option>
-            {books.map((book, index) => (
-              <option key={index} value={book}>
-                {book}
-              </option>
-            ))}
-          </select>
-        </div>
-
         {/* Subchapter Number Field */}
         <div className="form-group mt-3">
           <label htmlFor="subChapterNumber">Subchapter Number</label>
@@ -92,6 +69,20 @@ const AddSubChapter = () => {
             placeholder="Enter subchapter number"
             value={subChapterNumber}
             onChange={(e) => setSubChapterNumber(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Subchapter Title Field */}
+        <div className="form-group mt-3">
+          <label htmlFor="subChapterTitle">Subchapter Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="subChapterTitle"
+            placeholder="Enter subchapter title"
+            value={subChapterTitle}
+            onChange={(e) => setSubChapterTitle(e.target.value)}
             required
           />
         </div>

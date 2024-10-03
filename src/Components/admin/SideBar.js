@@ -49,17 +49,17 @@ const routes = [
     icon: <FaEdit />,
     subRoutes: [
       {
-        path: "/adminDashboard/updatechapter",
+        path: "/admin/updatechapter",
         name: "UpdateChapter",
         icon: <FaBookMedical />,
       },
       {
-        path: "/adminDashboard/updatesubchapter",
+        path: "/admin/updatesubchapter",
         name: "UpdateSubChapter",
         icon: <FaBookOpen />,
       },
       {
-        path: "/adminDashboard/updateimage",
+        path: "/admin/updateimage",
         name: "UpdateImage",
         icon: <FaFileImage />,
       },
