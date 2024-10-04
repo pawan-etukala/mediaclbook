@@ -1,0 +1,67 @@
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+   background-image: url("../Assets/homeo4.jpg");
+   background-position: center;
+   background-size: cover;
+   
+    color:white;
+}
+
+.clr{
+    color:#FFEEAD;
+}
+
+/* Style for the image container */
+.login-image {
+    flex: 1;
+    background: url('../Assets/homeo.jpg') no-repeat center center;
+    background-size: 100vw 80vh;
+}
+
+/* Style for the form container */
+.login-form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#25c8da2b;
+    font-size: 25px;
+}
+
+.login-form {
+    width: 50%;
+}
+
+/* Button styles */
+.btn-sign-in {
+    border-radius: 16px;
+    color: #96CEB4;
+    background-color: #f8f9fa;
+}
+
+/* Text styles */
+.form-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.shadow{
+    text-shadow: 3px 2px 5px goldenrod;
+}
+
+.input-group-text {
+    font-size: 1.2rem; /* Adjust size */
+    color: green; /* Green color for the tick */
+}
+.invalid-feedback {
+    display: block; /* Show feedback on error */
+}
+
+.input-group-text {
+    font-size: 1.2rem; /* Adjust size for tick */
+    color: green; /* Green color for the tick */
+}
+
