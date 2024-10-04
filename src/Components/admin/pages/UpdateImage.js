@@ -19,7 +19,8 @@ const UpdateImage = () => {
 
     try {
       const response = await axios.put(
-        `/admins/subchapter/image/update/${chapterNumber}/${subChapterNumber}`, // Use chapterNumber and subChapterNumber from state
+        `/admins/subchapter/image/update
+        /${chapterNumber}/${subChapterNumber}`, // Use chapterNumber and subChapterNumber from state
         formData,
         {
           headers: {
