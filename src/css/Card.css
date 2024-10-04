@@ -1,0 +1,97 @@
+/* Card styles */
+.custom-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* styles.css */
+
+/* Glassy effect card styles */
+.custom-card {
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Glassy effect */
+    border: 1px solid rgba(232, 5, 5, 0.2); /* Light border for better visibility */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 2rem;
+    color: #fff; /* Ensure text is readable on a light background */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+.custom-card {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-card:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
