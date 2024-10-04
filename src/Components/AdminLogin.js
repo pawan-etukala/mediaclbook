@@ -63,9 +63,15 @@ export default function Login() {
 
     if (usernameValid && passwordValid) {
       try {
-        const response = await axios.post("YOUR_API_ENDPOINT", details);
+        const response = await axios.get(
+          `http://localhost:8080/admins/getbyusername/${details.username}`
+        );
         if (response.status === 200) {
-          navigate("/admin");
+          if (response.data.password === details.password) {
+            navigate("/admin");
+          } else {
+            alert("Login failed");
+          }
         } else {
           alert("Login failed");
         }

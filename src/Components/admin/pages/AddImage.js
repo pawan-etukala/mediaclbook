@@ -5,6 +5,8 @@ const AddImage = () => {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [subchapter, setSubchapter] = useState("");
+  const [chapter, setChapter] = useState("");
+  const [subchapterTitle, setSubchapterTitle] = useState(""); // New state for subchapter title
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -13,6 +15,14 @@ const AddImage = () => {
 
   const handleSubchapterChange = (e) => {
     setSubchapter(e.target.value);
+  };
+
+  const handleChapterChange = (e) => {
+    setChapter(e.target.value);
+  };
+
+  const handleSubchapterTitleChange = (e) => {
+    setSubchapterTitle(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -28,12 +38,25 @@ const AddImage = () => {
       return;
     }
 
+    if (!chapter) {
+      alert("Please enter a chapter number.");
+      return;
+    }
+
+    if (!subchapterTitle) {
+      alert("Please enter a subchapter title.");
+      return;
+    }
+
     const formData = new FormData();
-    formData.append("image", image);
-    formData.append("subchapter", subchapter);
+    formData.append("file", image);
+    formData.append("subchapterNumber", subchapter);
+    formData.append("chapterId", chapter);
+    formData.append("subchapterTitle", subchapterTitle); // Append subchapter title
+    formData.append("contentType", "IMAGE");
 
     try {
-      const response = await axios.post("/api/uploadImage", formData, {
+      const response = await axios.post("/admins/subchapter/image", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -56,6 +79,19 @@ const AddImage = () => {
       <h3>Upload Image</h3>
 
       <form onSubmit={handleSubmit}>
+        {/* Chapter Input */}
+        <div className="form-group mt-3">
+          <label htmlFor="chapter">Chapter Number</label>
+          <input
+            type="number"
+            className="form-control"
+            id="chapter"
+            value={chapter}
+            onChange={handleChapterChange}
+            required
+          />
+        </div>
+
         {/* Subchapter Input */}
         <div className="form-group mt-3">
           <label htmlFor="subchapter">Subchapter Number</label>
@@ -65,6 +101,19 @@ const AddImage = () => {
             id="subchapter"
             value={subchapter}
             onChange={handleSubchapterChange}
+            required
+          />
+        </div>
+
+        {/* Subchapter Title Input */}
+        <div className="form-group mt-3">
+          <label htmlFor="subchapterTitle">Subchapter Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="subchapterTitle"
+            value={subchapterTitle}
+            onChange={handleSubchapterTitleChange}
             required
           />
         </div>
