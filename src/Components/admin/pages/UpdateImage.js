@@ -4,6 +4,7 @@ import axios from "axios";
 const UpdateImage = () => {
   const [chapterNumber, setChapterNumber] = useState("");
   const [subChapterNumber, setSubChapterNumber] = useState("");
+  const [imageNumber, setImageNumber] = useState("");
   const [image, setImage] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -19,8 +20,7 @@ const UpdateImage = () => {
 
     try {
       const response = await axios.put(
-        `/admins/subchapter/image/update
-        /${chapterNumber}/${subChapterNumber}`, // Use chapterNumber and subChapterNumber from state
+        `/admins/subchapter/image/${chapterNumber}/${subChapterNumber}/${imageNumber}`, // Use chapterNumber and subChapterNumber from state
         formData,
         {
           headers: {
@@ -28,8 +28,7 @@ const UpdateImage = () => {
           },
         }
       );
-
-      alert("Image updated successfully!");
+      if (response.status === 200) alert("Image updated successfully!");
     } catch (error) {
       console.error("Error updating image:", error);
       alert("Error updating image. Please try again.");
@@ -64,6 +63,19 @@ const UpdateImage = () => {
             placeholder="Enter subchapter number"
             value={subChapterNumber}
             onChange={(e) => setSubChapterNumber(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group mt-3">
+          <label htmlFor="imageNumber">Image Number</label>
+          <input
+            type="number"
+            className="form-control"
+            id="imageNumber"
+            placeholder="Enter image number"
+            value={imageNumber}
+            onChange={(e) => setImageNumber(e.target.value)}
             required
           />
         </div>

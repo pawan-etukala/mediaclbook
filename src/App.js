@@ -14,8 +14,10 @@ import Afterlogin from "./Components/AfterLogin";
 import Cart from "./Components/cart";
 import Admin from "./Components/admin/Admin";
 import AdminLogin from "./Components/AdminLogin";
+import ViewContent from "./Components/ViewContent";
 import logo from "./Assets/homeo.jpg";
 import "bootstrap/dist/css/bootstrap.css";
+
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermsAndServices" element={<TermsAndServices />} />
         <Route path="/Returnpolicy" element={<ReturnPolicy />} />
+        <Route path="/ViewContent" element={<ViewContent />} />
         <Route path="/ShoppingPolicy" element={<ShoppingPolicy />} />
         <Route
           path="/Afterlogin"
