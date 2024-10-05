@@ -12,7 +12,7 @@ const AddChapter = () => {
 
     const chapterData = {
       chapterNumber,
-      bookName,
+
       chapterTitle,
     };
 
