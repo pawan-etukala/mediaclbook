@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 const AddSubChapter = () => {
   const [chapterNumber, setChapterNumber] = useState("");
-  const [subChapterNumber, setSubChapterNumber] = useState("");
-  const [subChapterTitle, setSubChapterTitle] = useState("");
+  const [subchapterNumber, setsubchapterNumber] = useState("");
+  const [subchapterTitle, setSubchapterTitle] = useState("");
+  const [contentType, setContentType] = useState("");
   const [content, setContent] = useState("");
+
+  useEffect(() => {
+    setContentType("TEXT");
+  }, []);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -12,9 +18,10 @@ const AddSubChapter = () => {
 
     const subChapterData = {
       chapterNumber,
-      subChapterNumber,
-      subChapterTitle,
+      subchapterNumber,
+      subchapterTitle,
       content,
+      contentType: "TEXT", // Set contentType directly here
     };
 
     try {
@@ -33,8 +40,8 @@ const AddSubChapter = () => {
 
       // Reset form fields after successful submission
       setChapterNumber("");
-      setSubChapterNumber("");
-      setSubChapterTitle("");
+      setsubchapterNumber("");
+      setSubchapterTitle("");
       setContent("");
     } catch (error) {
       console.error("Error adding subchapter:", error);
@@ -61,28 +68,28 @@ const AddSubChapter = () => {
 
         {/* Subchapter Number Field */}
         <div className="form-group mt-3">
-          <label htmlFor="subChapterNumber">Subchapter Number</label>
+          <label htmlFor="subchapterNumber">Subchapter Number</label>
           <input
             type="number"
             className="form-control"
-            id="subChapterNumber"
+            id="subchapterNumber"
             placeholder="Enter subchapter number"
-            value={subChapterNumber}
-            onChange={(e) => setSubChapterNumber(e.target.value)}
+            value={subchapterNumber}
+            onChange={(e) => setsubchapterNumber(e.target.value)}
             required
           />
         </div>
 
         {/* Subchapter Title Field */}
         <div className="form-group mt-3">
-          <label htmlFor="subChapterTitle">Subchapter Title</label>
+          <label htmlFor="subchapterTitle">Subchapter Title</label>
           <input
             type="text"
             className="form-control"
-            id="subChapterTitle"
+            id="subchapterTitle"
             placeholder="Enter subchapter title"
-            value={subChapterTitle}
-            onChange={(e) => setSubChapterTitle(e.target.value)}
+            value={subchapterTitle}
+            onChange={(e) => setSubchapterTitle(e.target.value)}
             required
           />
         </div>
