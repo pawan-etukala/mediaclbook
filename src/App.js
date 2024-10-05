@@ -17,6 +17,7 @@ import AdminLogin from "./Components/AdminLogin";
 import logo from "./Assets/homeo.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import ContentView from "./Components/ContentView";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/TermsAndServices" element={<TermsAndServices />} />
         <Route path="/Returnpolicy" element={<ReturnPolicy />} />
         <Route path="/ShoppingPolicy" element={<ShoppingPolicy />} />
+        <Route path="/Contentview" element={<ContentView />} />
         <Route
           path="/Afterlogin"
           element={
