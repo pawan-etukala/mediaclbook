@@ -9,6 +9,11 @@ import AddImage from "./pages/AddImage";
 import Order from "./pages/Order";
 import Setting from "./pages/Setting";
 import SideBar from "./SideBar";
+import UpdateSubChapter from "./pages/UpdateSubChapter";
+import UpdateChapter from "./pages/UpdateChapter";
+import DeleteChapter from "./pages/DeleteChapter";
+import DeleteSubChapter from "./pages/DeleteSubChapter";
+import DeleteImg from "./pages/DeleteImg";
 import UpdateImage from "./pages/UpdateImage";
 
 import "../../css/Admin.css";
@@ -22,6 +27,11 @@ function Admin() {
         <Route path="/addsubchapter" element={<AddSubChapter />} />
         <Route path="/addimage" element={<AddImage />} />
         <Route path="/updateimage" element={<UpdateImage />} />
+        <Route path="/updatesubchapter" element={<UpdateSubChapter />} />
+        <Route path="/updatechapter" element={<UpdateChapter />} />
+        <Route path="/deletechapter" element={<DeleteChapter />} />
+        <Route path="/deletesubchapter" element={<DeleteSubChapter />} />
+        <Route path="/deleteimage" element={<DeleteImg />} />
         <Route path="/users" element={<Users />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/order" element={<Order />} />

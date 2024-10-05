@@ -72,17 +72,17 @@ const routes = [
     icon: <MdDelete />,
     subRoutes: [
       {
-        path: "/adminDashboard/deletechapter",
+        path: "/admin/deletechapter",
         name: "DeleteChapter",
         icon: <FaBookMedical />,
       },
       {
-        path: "/adminDashboard/deletesubchapter",
+        path: "/admin/deletesubchapter",
         name: "DeleteSubChapter",
         icon: <FaBookOpen />,
       },
       {
-        path: "/adminDashboard/deleteimage",
+        path: "/admin/deleteimage",
         name: "DeleteImage",
         icon: <FaFileImage />,
       },
