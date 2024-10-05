@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Assuming you are using React Router for dynamic routing
+
+import axios from "axios"; // Import Axios
 
 const UpdateChapter = () => {
-  const { chapterId } = useParams(); // Get chapter ID from route params
   const [chapterNumber, setChapterNumber] = useState("");
-  const [bookName, setBookName] = useState("");
+
   const [chapterTitle, setChapterTitle] = useState("");
-  const [books, setBooks] = useState(["Book 1", "Book 2", "Book 3"]); // Static book data for demonstration
 
   // Fetch existing chapter data when the component mounts
   useEffect(() => {
     const fetchChapter = async () => {
       try {
-        const response = await fetch(`/api/chapters/${chapterId}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch chapter data");
-        }
-        const chapter = await response.json();
+        const response = await axios.get(`/admins/chapter/${chapterNumber}`);
+        const chapter = response.data;
         setChapterNumber(chapter.chapterNumber);
-        setBookName(chapter.bookName);
-        setChapterTitle(chapter.chapterTitle);
+
+        setChapterTitle(chapter.title);
       } catch (error) {
         console.error("Error fetching chapter data:", error);
       }
     };
 
     fetchChapter();
-  }, [chapterId]);
+  }, [chapterNumber]);
 
   // Handle form submission for updating the chapter
   const handleSubmit = async (e) => {
@@ -34,25 +30,15 @@ const UpdateChapter = () => {
 
     const updatedChapterData = {
       chapterNumber,
-      bookName,
       chapterTitle,
     };
 
     try {
-      const response = await fetch(`/api/chapters/${chapterId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedChapterData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update chapter");
-      }
-
-      const result = await response.json();
-      console.log("Chapter updated successfully:", result);
+      const response = await axios.put(
+        `/admins/chapter/${chapterNumber}`,
+        updatedChapterData
+      );
+      console.log("Chapter updated successfully:", response.data);
 
       // Optionally, redirect or show a success message
     } catch (error) {
@@ -77,25 +63,6 @@ const UpdateChapter = () => {
               onChange={(e) => setChapterNumber(e.target.value)}
               required
             />
-          </div>
-
-          {/* Book Name (Select Field) */}
-          <div className="form-group mt-3">
-            <label htmlFor="bookName">Book Name</label>
-            <select
-              className="form-control"
-              id="bookName"
-              value={bookName}
-              onChange={(e) => setBookName(e.target.value)}
-              required
-            >
-              <option value="">Select a book</option>
-              {books.map((book, index) => (
-                <option key={index} value={book}>
-                  {book}
-                </option>
-              ))}
-            </select>
           </div>
 
           {/* Chapter Title Field */}
