@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const AddChapter = () => {
   const [chapterNumber, setChapterNumber] = useState("");
-  const [bookName, setBookName] = useState("");
-  const [chapterTitle, setChapterTitle] = useState("");
-  const [books, setBooks] = useState(["Book 1", "Book 2", "Book 3"]); // Static book data for demonstration
+  const [title, setTitle] = useState("");
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -12,38 +11,33 @@ const AddChapter = () => {
 
     const chapterData = {
       chapterNumber,
-
-      chapterTitle,
+      title,
     };
 
     try {
-      // Example of sending data to an API
-      const response = await fetch("/api/chapters", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(chapterData),
-      });
+      // Example of sending data to an API using axios
+      const response = await axios.post(
+        `http://localhost:8080/admins/chapter/${chapterNumber}`,
+        chapterData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      console.log("Chapter added successfully:", result);
+      console.log("Chapter added successfully:", response.data);
 
       // Reset form fields after successful submission
       setChapterNumber("");
-      setBookName("");
-      setChapterTitle("");
+      setTitle("");
     } catch (error) {
       console.error("Error adding chapter:", error);
     }
   };
 
   return (
-    <div className=" container-fluid d-flex  justify-content-center align-items-center h-100">
+    <div className="container-fluid d-flex justify-content-center align-items-center h-100">
       <div className="container mt-5">
         <h3>Add Chapter</h3>
         <form onSubmit={handleSubmit}>
@@ -61,25 +55,6 @@ const AddChapter = () => {
             />
           </div>
 
-          {/* Book Name (Select Field) */}
-          <div className="form-group mt-3">
-            <label htmlFor="bookName">Book Name</label>
-            <select
-              className="form-control"
-              id="bookName"
-              value={bookName}
-              onChange={(e) => setBookName(e.target.value)}
-              required
-            >
-              <option value="">Select a book</option>
-              {books.map((book, index) => (
-                <option key={index} value={book}>
-                  {book}
-                </option>
-              ))}
-            </select>
-          </div>
-
           {/* Chapter Title Field */}
           <div className="form-group mt-3">
             <label htmlFor="chapterTitle">Chapter Title</label>
@@ -88,8 +63,8 @@ const AddChapter = () => {
               className="form-control"
               id="chapterTitle"
               placeholder="Enter chapter title"
-              value={chapterTitle}
-              onChange={(e) => setChapterTitle(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               required
             />
           </div>
