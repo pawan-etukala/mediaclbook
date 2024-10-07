@@ -6,12 +6,15 @@ const UpdateImage = () => {
   const [subChapterNumber, setSubChapterNumber] = useState("");
   const [imageNumber, setImageNumber] = useState("");
   const [image, setImage] = useState(null);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState(""); // 'success' or 'danger'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!image) {
-      alert("Please select an image to upload.");
+      setAlertMessage("Please select an image to upload.");
+      setAlertType("danger");
       return;
     }
 
@@ -20,7 +23,7 @@ const UpdateImage = () => {
 
     try {
       const response = await axios.put(
-        `/admins/subchapter/image/${chapterNumber}/${subChapterNumber}/${imageNumber}`, // Use chapterNumber and subChapterNumber from state
+        `/admins/subchapter/image/${chapterNumber}/${subChapterNumber}/${imageNumber}`,
         formData,
         {
           headers: {
@@ -28,18 +31,36 @@ const UpdateImage = () => {
           },
         }
       );
-      if (response.status === 200) alert("Image updated successfully!");
+      if (response.status === 200) {
+        setAlertMessage("Image updated successfully!");
+        setAlertType("success");
+      }
     } catch (error) {
       console.error("Error updating image:", error);
-      alert("Error updating image. Please try again.");
+      setAlertMessage("Error updating image. Please try again.");
+      setAlertType("danger");
     }
   };
 
   return (
     <div className="container mt-5">
       <h3>Update Image</h3>
+      {alertMessage && (
+        <div
+          className={`alert alert-${alertType} alert-dismissible fade show`}
+          role="alert"
+        >
+          {alertMessage}
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            onClick={() => setAlertMessage("")}
+          ></button>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
-        {/* Chapter Number Field */}
         <div className="form-group">
           <label htmlFor="chapterNumber">Chapter Number</label>
           <input
@@ -53,7 +74,6 @@ const UpdateImage = () => {
           />
         </div>
 
-        {/* Subchapter Number Field */}
         <div className="form-group mt-3">
           <label htmlFor="subChapterNumber">Subchapter Number</label>
           <input
@@ -80,7 +100,6 @@ const UpdateImage = () => {
           />
         </div>
 
-        {/* Image Upload Field */}
         <div className="form-group mt-3">
           <label htmlFor="image">Upload Image</label>
           <input
@@ -92,7 +111,6 @@ const UpdateImage = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <button type="submit" className="btn btn-primary mt-4">
           Update Image
         </button>

@@ -1,35 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const UpdateSubChapter = () => {
-  const { subChapterId } = useParams(); // Assuming you are passing the subChapterId via URL params
-
   const [chapterNumber, setChapterNumber] = useState("");
-  const [bookNumber, setBookNumber] = useState("");
-  const [subChapterNumber, setSubChapterNumber] = useState("");
+  const [subchapterNumber, setSubChapterNumber] = useState("");
+  const [subchapterTitle, setSubChapterTitle] = useState("");
   const [content, setContent] = useState("");
-  const [books, setBooks] = useState(["Book 1", "Book 2", "Book 3"]); // Static book data for selection
+  const [alertMessage, setAlertMessage] = useState("");
 
-  // Fetch subchapter data to pre-fill the form
+  // Fetch subchapter data when chapterNumber and subchapterNumber change
   useEffect(() => {
-    const fetchSubChapter = async () => {
-      try {
-        const response = await fetch(`/api/subchapters/${subChapterId}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    const fetchSubChapterData = async () => {
+      if (chapterNumber && subchapterNumber) {
+        try {
+          const response = await axios.get(
+            `http://localhost:8080/admins/subchapter/TEXT/${chapterNumber}/${subchapterNumber}`
+          );
+          const { subchapterTitle, content } = response.data;
+          setSubChapterTitle(subchapterTitle);
+          setContent(content);
+        } catch (error) {
+          console.error("Error fetching subchapter data:", error);
         }
-        const data = await response.json();
-        setChapterNumber(data.chapterNumber);
-        setBookNumber(data.bookNumber);
-        setSubChapterNumber(data.subChapterNumber);
-        setContent(data.content);
-      } catch (error) {
-        console.error("Error fetching subchapter data:", error);
       }
     };
 
-    fetchSubChapter();
-  }, [subChapterId]);
+    fetchSubChapterData();
+  }, [chapterNumber, subchapterNumber]);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -37,35 +34,47 @@ const UpdateSubChapter = () => {
 
     const updatedSubChapterData = {
       chapterNumber,
-      bookNumber,
-      subChapterNumber,
+      subchapterNumber,
+      subchapterTitle,
       content,
     };
 
     try {
-      // Sending updated subchapter data to the API via PUT request
-      const response = await fetch(`/api/subchapters/${subChapterId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedSubChapterData),
-      });
+      const response = await axios.put(
+        `http://localhost:8080/admins/subchapter/TEXT/${chapterNumber}/${subchapterNumber}`,
+        updatedSubChapterData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      console.log("Subchapter updated successfully:", result);
+      console.log("Subchapter updated successfully:", response.data);
+      setAlertMessage("Subchapter updated successfully!");
     } catch (error) {
       console.error("Error updating subchapter:", error);
+      setAlertMessage("Error updating subchapter.");
     }
   };
 
   return (
     <div className="container mt-5">
       <h3>Update Subchapter</h3>
+      {alertMessage && (
+        <div
+          className="alert alert-info alert-dismissible fade show"
+          role="alert"
+        >
+          {alertMessage}
+          <button
+            type="button"
+            className="btn-close"
+            aria-label="Close"
+            onClick={() => setAlertMessage("")}
+          ></button>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         {/* Chapter Number Field */}
         <div className="form-group">
@@ -81,25 +90,6 @@ const UpdateSubChapter = () => {
           />
         </div>
 
-        {/* Book Number (Select Field) */}
-        <div className="form-group mt-3">
-          <label htmlFor="bookNumber">Book Number</label>
-          <select
-            className="form-control"
-            id="bookNumber"
-            value={bookNumber}
-            onChange={(e) => setBookNumber(e.target.value)}
-            required
-          >
-            <option value="">Select a book</option>
-            {books.map((book, index) => (
-              <option key={index} value={book}>
-                {book}
-              </option>
-            ))}
-          </select>
-        </div>
-
         {/* Subchapter Number Field */}
         <div className="form-group mt-3">
           <label htmlFor="subChapterNumber">Subchapter Number</label>
@@ -108,8 +98,22 @@ const UpdateSubChapter = () => {
             className="form-control"
             id="subChapterNumber"
             placeholder="Enter subchapter number"
-            value={subChapterNumber}
+            value={subchapterNumber}
             onChange={(e) => setSubChapterNumber(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Subchapter Title Field */}
+        <div className="form-group mt-3">
+          <label htmlFor="subChapterTitle">Subchapter Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="subChapterTitle"
+            placeholder="Enter subchapter title"
+            value={subchapterTitle}
+            onChange={(e) => setSubChapterTitle(e.target.value)}
             required
           />
         </div>

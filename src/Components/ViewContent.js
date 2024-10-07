@@ -8,7 +8,7 @@ function ViewContent() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/admins/chapter/1") // Replace with your actual API endpoint
+      .get("http://localhost:8080/admins/chapter/5") // Replace with your actual API endpoint
       .then((response) => {
         setChapter(response.data);
         setLoading(false);
