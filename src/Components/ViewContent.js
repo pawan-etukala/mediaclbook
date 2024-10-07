@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function ViewContent() {
+  const { chapterNumber } = useParams();
   const [chapter, setChapter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/admins/chapter/5") // Replace with your actual API endpoint
+      .get(`http://localhost:8080/admins/chapter/${chapterNumber}`) // Replace with your actual API endpoint
       .then((response) => {
         setChapter(response.data);
         setLoading(false);
@@ -17,7 +19,7 @@ function ViewContent() {
         setError(error);
         setLoading(false);
       });
-  }, []);
+  }, [chapterNumber]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
