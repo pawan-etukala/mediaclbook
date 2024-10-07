@@ -7,6 +7,8 @@ const AddImage = () => {
   const [subchapter, setSubchapter] = useState("");
   const [chapter, setChapter] = useState("");
   const [subchapterTitle, setSubchapterTitle] = useState(""); // New state for subchapter title
+  const [alertMessage, setAlertMessage] = useState(""); // State for alert message
+  const [showAlert, setShowAlert] = useState(false); // State for alert visibility
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -29,22 +31,26 @@ const AddImage = () => {
     e.preventDefault();
 
     if (!image) {
-      alert("Please select an image to upload.");
+      setAlertMessage("Please select an image to upload.");
+      setShowAlert(true);
       return;
     }
 
     if (!subchapter) {
-      alert("Please enter a subchapter number.");
+      setAlertMessage("Please enter a subchapter number.");
+      setShowAlert(true);
       return;
     }
 
     if (!chapter) {
-      alert("Please enter a chapter number.");
+      setAlertMessage("Please enter a chapter number.");
+      setShowAlert(true);
       return;
     }
 
     if (!subchapterTitle) {
-      alert("Please enter a subchapter title.");
+      setAlertMessage("Please enter a subchapter title.");
+      setShowAlert(true);
       return;
     }
 
@@ -64,19 +70,37 @@ const AddImage = () => {
 
       if (response.data) {
         setImageUrl(response.data.imageUrl);
-        alert("Image uploaded successfully!");
+        setAlertMessage("Image uploaded successfully!");
+        setShowAlert(true);
       } else {
-        alert("Error uploading image.");
+        setAlertMessage("Error uploading image.");
+        setShowAlert(true);
       }
     } catch (error) {
       console.error("Error during image upload:", error);
-      alert("Error uploading image. Please try again.");
+      setAlertMessage("Error uploading image. Please try again.");
+      setShowAlert(true);
     }
   };
 
   return (
     <div className="container mt-5">
       <h3>Upload Image</h3>
+
+      {showAlert && (
+        <div
+          className="alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          {alertMessage}
+          <button
+            type="button"
+            className="btn-close"
+            aria-label="Close"
+            onClick={() => setShowAlert(false)}
+          ></button>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit}>
         {/* Chapter Input */}

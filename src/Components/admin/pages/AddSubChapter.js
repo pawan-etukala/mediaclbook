@@ -5,12 +5,9 @@ const AddSubChapter = () => {
   const [chapterNumber, setChapterNumber] = useState("");
   const [subchapterNumber, setsubchapterNumber] = useState("");
   const [subchapterTitle, setSubchapterTitle] = useState("");
-  const [contentType, setContentType] = useState("");
   const [content, setContent] = useState("");
-
-  useEffect(() => {
-    setContentType("TEXT");
-  }, []);
+  const [alert, setAlert] = useState({ type: "", message: "" });
+  const [showAlert, setShowAlert] = useState(false);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -38,6 +35,10 @@ const AddSubChapter = () => {
 
       console.log("Subchapter added successfully:", response.data);
 
+      // Set success alert
+      setAlert({ type: "success", message: "Subchapter added successfully!" });
+      setShowAlert(true);
+
       // Reset form fields after successful submission
       setChapterNumber("");
       setsubchapterNumber("");
@@ -45,12 +46,33 @@ const AddSubChapter = () => {
       setContent("");
     } catch (error) {
       console.error("Error adding subchapter:", error);
+
+      // Set error alert
+      setAlert({
+        type: "danger",
+        message: "Error adding subchapter. Please try again.",
+      });
+      setShowAlert(true);
     }
   };
 
   return (
     <div className="container mt-5">
       <h3>Add Subchapter</h3>
+      {showAlert && alert.message && (
+        <div
+          className={`alert alert-${alert.type} alert-dismissible fade show`}
+          role="alert"
+        >
+          {alert.message}
+          <button
+            type="button"
+            className="btn-close"
+            aria-label="Close"
+            onClick={() => setShowAlert(false)}
+          ></button>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         {/* Chapter Number Field */}
         <div className="form-group">
