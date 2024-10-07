@@ -3,12 +3,10 @@ import { useNavigate } from "react-router-dom"; // Assuming you are using React 
 
 const DeleteChapter = () => {
   const [chapterNumber, setChapterNumber] = useState(""); // State to hold the chapter number input
-  const [bookName, setBookName] = useState(""); // State to hold the book name input
   const [chapterTitle, setChapterTitle] = useState(""); // State to hold the chapter title input
   const navigate = useNavigate(); // Hook for programmatic navigation
 
-  // Array of books for the dropdown
-  const books = ["Book 1", "Book 2", "Book 3"];
+ 
 
   // Handle chapter deletion
   const handleDelete = async () => {
@@ -57,25 +55,7 @@ const DeleteChapter = () => {
           />
         </div>
 
-        {/* Book Name Dropdown */}
-        <div className="form-group mt-3">
-          <label htmlFor="bookName">Book Name</label>
-          <select
-            className="form-control"
-            id="bookName"
-            value={bookName}
-            onChange={(e) => setBookName(e.target.value)}
-            required
-          >
-            <option value="">Select a book</option>
-            {books.map((book, index) => (
-              <option key={index} value={book}>
-                {book}
-              </option>
-            ))}
-          </select>
-        </div>
-
+  
         {/* Chapter Title Field */}
         <div className="form-group mt-3">
           <label htmlFor="chapterTitle">Chapter Title</label>
