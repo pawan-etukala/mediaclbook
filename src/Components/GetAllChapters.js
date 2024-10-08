@@ -31,7 +31,9 @@ function GetAllChapters() {
         {chapters.map((chapter) => (
           <li
             key={chapter.id}
-            onClick={() => navigate(`/viewContent/${chapter.chapterNumber}`)}
+            onClick={() =>
+              navigate(`/admin/viewContent/${chapter.chapterNumber}`)
+            }
           >
             {`Chapter ${chapter.chapterNumber}: ${chapter.title}`}
           </li>

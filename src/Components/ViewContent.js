@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "../css/ViewContent.css";
 
 function ViewContent() {
   const { chapterNumber } = useParams();
@@ -25,23 +26,26 @@ function ViewContent() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div>
-      <h1>{`chapter number : ${chapter.chapterNumber}  ${chapter.title}`}</h1>
+    <div className="content">
+      <h1>{`chapter: ${chapter.chapterNumber} | ${chapter.title}`}</h1>
       <p>{chapter.content}</p>
-      <h2>Subchapters</h2>
+
       <ul>
         {chapter.subChapters.map((subchapter, index) => (
           <li key={index}>
             {subchapter.contentType === "TEXT" ? (
               <>
-                <h4>{subchapter.subchapterTitle}</h4>
+                <h4>
+                  subchapter : {subchapter.subchapterNumber} - Title :{" "}
+                  {subchapter.subchapterTitle}
+                </h4>
                 <p>{subchapter.content}</p>
               </>
             ) : (
               <>
-                <h4>{subchapter.subchapterTitle}</h4>
+                <h4>Image Title : {subchapter.subchapterTitle}</h4>
                 <img
-                  src={`assets/${subchapter.content}`}
+                  src={`/assets/${subchapter.content}`}
                   alt={subchapter.subchapterTitle}
                 />
               </>
