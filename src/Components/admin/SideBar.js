@@ -24,6 +24,7 @@ import { FaEye } from "react-icons/fa6";
 const routes = [
   { path: "/admin/", name: "AdminDashboard", icon: <FaHome /> },
   { path: "/admin/getallchapters", name: "GetAllChapters", icon: <FaEye /> },
+
   {
     path: "/admin/adminDashboard",
     name: "Add",
